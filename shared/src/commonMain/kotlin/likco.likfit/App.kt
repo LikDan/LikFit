@@ -20,17 +20,16 @@ import likco.likfit.services.firebase.FirebaseAuth
 fun App() {
     MaterialTheme {
         Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
-
             var login by remember { mutableStateOf("") }
             var password by remember { mutableStateOf("") }
-            var user by remember { mutableStateOf("") }
+            var user by remember { mutableStateOf(AuthService.user) }
 
             OutlinedTextField(login, { login = it })
             OutlinedTextField(password, { password = it })
 
             Button(onClick = {
                 AuthService.login(login, password) {
-                    user = FirebaseAuth.user?.login ?: "Not logged in"
+                    user = FirebaseAuth.user
                 }
             }) {
                 Text("Login")
@@ -38,12 +37,21 @@ fun App() {
 
             Button(onClick = {
                 AuthService.signup(login, password, password) {
-                    user = FirebaseAuth.user?.login ?: "Not logged in"
+                    user = FirebaseAuth.user
                 }
             }) {
                 Text("SignUp")
             }
-            Text(user)
+
+            Button(onClick = {
+                AuthService.logout {
+                    user = FirebaseAuth.user
+                }
+            }) {
+                Text("Logout")
+            }
+
+            Text(user?.login ?: "not authenticated")
         }
     }
 }

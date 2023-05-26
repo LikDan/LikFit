@@ -8,5 +8,6 @@ expect object FirebaseAuth {
     object EmailAndPassword {
         fun login(email: String, password: String, error: () -> Unit = {}, success: () -> Unit)
         fun signup(email: String, password: String, error: () -> Unit = {}, success: () -> Unit)
+        fun logout(error: () -> Unit = {}, success: () -> Unit)
     }
 }

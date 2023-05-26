@@ -6,7 +6,9 @@ import likco.likfit.services.firebase.FirebaseAuth
 object AuthService {
     var user: User?
         get() = FirebaseAuth.user
-        private set(value) { FirebaseAuth.user = value }
+        private set(value) {
+            FirebaseAuth.user = value
+        }
 
     fun login(
         email: String,
@@ -29,5 +31,12 @@ object AuthService {
         if (email == "" || password == "") return error()
 
         FirebaseAuth.EmailAndPassword.signup(email, password, error, success)
+    }
+
+    fun logout(
+        error: () -> Unit = {},
+        success: () -> Unit
+    ) {
+        FirebaseAuth.EmailAndPassword.logout(error, success)
     }
 }
