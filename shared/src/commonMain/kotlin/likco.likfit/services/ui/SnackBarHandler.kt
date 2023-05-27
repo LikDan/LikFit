@@ -20,7 +20,6 @@ object SnackBarHandler {
         private set
 
     fun show(snackBar: SnackBar) {
-        this.state?.currentSnackbarData?.dismiss()
         this.current = snackBar
         this.scope?.launch {
             this@SnackBarHandler.state?.showSnackbar(
@@ -31,7 +30,7 @@ object SnackBarHandler {
     }
 
     fun hide() {
-
+        this.state?.currentSnackbarData?.dismiss()
     }
 
     fun error(text: String, icon: String? = null) =
