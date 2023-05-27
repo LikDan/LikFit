@@ -5,16 +5,25 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedTextField
+import androidx.compose.material.Snackbar
+import androidx.compose.material.SnackbarHost
+import androidx.compose.material.SnackbarHostState
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import kotlinx.coroutines.launch
+import likco.likfit.modals.ui.SnackBar
+import likco.likfit.modals.ui.SnackBarType
 import likco.likfit.services.AuthService
 import likco.likfit.services.firebase.FirebaseAuth
+import likco.likfit.services.ui.SnackBarHandler
 
 @Composable
 fun App() {
@@ -23,6 +32,15 @@ fun App() {
             var login by remember { mutableStateOf("") }
             var password by remember { mutableStateOf("") }
             var user by remember { mutableStateOf(AuthService.user) }
+
+            fun launchSnackBar() {
+                val value = SnackBarType.values().random()
+                SnackBarHandler.show(SnackBar(value.name, value))
+            }
+
+            Button(::launchSnackBar) {
+                Text("Show Snackbar")
+            }
 
             OutlinedTextField(login, { login = it })
             OutlinedTextField(password, { password = it })
@@ -52,6 +70,8 @@ fun App() {
             }
 
             Text(user?.login ?: "not authenticated")
+
+            SnackBarHandler.view()
         }
     }
 }
