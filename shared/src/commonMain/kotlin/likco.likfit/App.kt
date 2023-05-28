@@ -13,6 +13,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import likco.likfit.i18n.Languages
+import likco.likfit.i18n.Strings
 import likco.likfit.modals.ui.SnackBar
 import likco.likfit.modals.ui.SnackBarType
 import likco.likfit.services.AuthService
@@ -22,6 +24,8 @@ import likco.likfit.services.ui.SnackBarHandler
 @Composable
 fun App() {
     MaterialTheme {
+        var language by remember { mutableStateOf(Languages.EN_US) }
+
         Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
             var login by remember { mutableStateOf("") }
             var password by remember { mutableStateOf("") }
@@ -31,6 +35,8 @@ fun App() {
                 val value = SnackBarType.values().random()
                 SnackBarHandler.show(SnackBar(value.name, value))
             }
+
+            Text("Current language is $language")
 
             Button(::launchSnackBar) {
                 Text("Show Snackbar")
@@ -44,7 +50,7 @@ fun App() {
                     user = FirebaseAuth.user
                 }
             }) {
-                Text("Login")
+                Text(language.getOrCode(Strings.LOGIN))
             }
 
             Button(onClick = {
@@ -52,7 +58,7 @@ fun App() {
                     user = FirebaseAuth.user
                 }
             }) {
-                Text("SignUp")
+                Text(language.getOrCode(Strings.SIGNUP))
             }
 
             Button(onClick = {
@@ -60,7 +66,21 @@ fun App() {
                     user = FirebaseAuth.user
                 }
             }) {
-                Text("Logout")
+                Text(language.getOrCode(Strings.LOGOUT))
+            }
+
+            Button(onClick = {
+                Strings.locale = Languages.EN_US
+                language = Strings.locale
+            }) {
+                Text("English")
+            }
+
+            Button(onClick = {
+                Strings.locale = Languages.RU_RU
+                language = Strings.locale
+            }) {
+                Text("Russian")
             }
 
             Text(user?.login ?: "not authenticated")

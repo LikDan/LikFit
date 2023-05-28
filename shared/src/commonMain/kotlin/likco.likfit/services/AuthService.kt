@@ -19,7 +19,7 @@ object AuthService {
         error: ErrorHandlerFun = ErrorHandler::handle,
         success: () -> Unit
     ) {
-        if (email == "" || password == "") return error(Error("fields_required"))
+        if (email == "" || password == "") return error(Error(code = "ERROR_FIELD_REQUIRED"))
         FirebaseAuth.EmailAndPassword.login(email, password, error, success)
     }
 
@@ -30,8 +30,8 @@ object AuthService {
         error: ErrorHandlerFun = ErrorHandler::handle,
         success: () -> Unit
     ) {
-        if (email == "" || password == "") return error(Error("fields_required"))
-        if (password != passwordConfirmation) return error(Error("passwords_mismatch"))
+        if (email == "" || password == "") return error(Error(code = "ERROR_FIELD_REQUIRED"))
+        if (password != passwordConfirmation) return error(Error(code = "ERROR_PASSWORDS_MISMATCH"))
 
         FirebaseAuth.EmailAndPassword.signup(email, password, error, success)
     }

@@ -6,9 +6,4 @@ object ErrorHandler {
     fun handle(error: Error) {
         SnackBarHandler.error(error.text)
     }
-
-    //todo - localization
-    fun getMessageByCode(code: String?): String? {
-        return code
-    }
 }
