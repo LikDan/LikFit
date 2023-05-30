@@ -19,12 +19,12 @@ actual object FirebaseAuth {
             email: String,
             password: String,
             error: ErrorHandlerFun,
-            success: () -> Unit
+            success: (User) -> Unit
         ) {
             auth.signInWithEmail(email = email, password = password) { result, err ->
                 result ?: return@signInWithEmail error(err.error())
-                user = User(result.user.email ?: "-?-")
-                success()
+                user = User(result.user.uid, result.user.email ?: "-?-")
+                success(user!!)
             }
         }
 
@@ -32,12 +32,12 @@ actual object FirebaseAuth {
             email: String,
             password: String,
             error: ErrorHandlerFun,
-            success: () -> Unit
+            success: (User) -> Unit
         ) {
             auth.createUserWithEmail(email = email, password = password) { result, err ->
                 result ?: return@createUserWithEmail error(err.error())
-                user = User(result.user.email ?: "-?-")
-                success()
+                user = User(result.user.uid, result.user.email ?: "-?-")
+                success(user!!)
             }
         }
 
@@ -54,8 +54,11 @@ actual object FirebaseAuth {
     init {
         FIRApp.configure()
         this.auth = FIRAuth.auth()
-        this.user =
-            if (this.auth.currentUser == null) null else User(this.auth.currentUser?.email ?: "-?-")
+        this.user = if (this.auth.currentUser == null) null
+        else User(
+            this.auth.currentUser?.uid ?: "",
+            this.auth.currentUser?.email ?: "-?-"
+        )
     }
 
     private fun NSError?.error() =

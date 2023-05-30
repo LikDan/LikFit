@@ -11,14 +11,14 @@ expect object FirebaseAuth {
             email: String,
             password: String,
             error: ErrorHandlerFun = {},
-            success: () -> Unit
+            success: (User) -> Unit
         )
 
         fun signup(
             email: String,
             password: String,
             error: ErrorHandlerFun = {},
-            success: () -> Unit
+            success: (User) -> Unit
         )
 
         fun logout(

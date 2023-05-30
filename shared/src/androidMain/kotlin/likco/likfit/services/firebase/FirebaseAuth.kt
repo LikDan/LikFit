@@ -18,13 +18,13 @@ actual object FirebaseAuth {
             email: String,
             password: String,
             error: ErrorHandlerFun,
-            success: () -> Unit
+            success: (User) -> Unit
         ) {
             auth
                 .signInWithEmailAndPassword(email, password)
                 .addOnSuccessListener {
-                    user = User(it.user?.email ?: "-?-")
-                    success()
+                    user = User(it.user?.uid ?: "", it.user?.email ?: "-?-")
+                    success(user!!)
                 }
                 .addOnFailureListener {
                     error(it.error())
@@ -35,13 +35,13 @@ actual object FirebaseAuth {
             email: String,
             password: String,
             error: ErrorHandlerFun,
-            success: () -> Unit
+            success: (User) -> Unit
         ) {
             auth
                 .createUserWithEmailAndPassword(email, password)
                 .addOnSuccessListener {
-                    user = User(it.user?.email ?: "-?-")
-                    success()
+                    user = User(it.user?.uid ?: "", it.user?.email ?: "-?-")
+                    success(user!!)
                 }
                 .addOnFailureListener {
                     error(it.error())
@@ -59,8 +59,11 @@ actual object FirebaseAuth {
     }
 
     init {
-        this.user =
-            if (this.auth.currentUser == null) null else User(this.auth.currentUser?.email ?: "-?-")
+        this.user = if (this.auth.currentUser == null) null
+        else User(
+            this.auth.currentUser?.uid ?: "",
+            this.auth.currentUser?.email ?: "-?-"
+        )
     }
 
     private fun Exception.error() = Error(code = (this as FirebaseAuthException).errorCode)

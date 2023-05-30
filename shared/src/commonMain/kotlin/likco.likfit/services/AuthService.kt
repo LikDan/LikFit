@@ -17,7 +17,7 @@ object AuthService {
         email: String,
         password: String,
         error: ErrorHandlerFun = ErrorHandler::handle,
-        success: () -> Unit
+        success: (User) -> Unit
     ) {
         if (email == "" || password == "") return error(Error(code = "ERROR_FIELD_REQUIRED"))
         FirebaseAuth.EmailAndPassword.login(email, password, error, success)
@@ -28,7 +28,7 @@ object AuthService {
         password: String,
         passwordConfirmation: String,
         error: ErrorHandlerFun = ErrorHandler::handle,
-        success: () -> Unit
+        success: (User) -> Unit
     ) {
         if (email == "" || password == "") return error(Error(code = "ERROR_FIELD_REQUIRED"))
         if (password != passwordConfirmation) return error(Error(code = "ERROR_PASSWORDS_MISMATCH"))
