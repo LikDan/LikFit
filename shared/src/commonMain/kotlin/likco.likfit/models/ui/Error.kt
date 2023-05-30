@@ -1,4 +1,4 @@
-package likco.likfit.modals.ui
+package likco.likfit.models.ui
 
 import likco.likfit.i18n.Strings
 

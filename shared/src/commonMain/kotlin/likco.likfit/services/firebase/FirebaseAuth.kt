@@ -1,7 +1,7 @@
 package likco.likfit.services.firebase
 
-import likco.likfit.modals.User
-import likco.likfit.modals.ui.ErrorHandlerFun
+import likco.likfit.models.User
+import likco.likfit.models.ui.ErrorHandlerFun
 
 expect object FirebaseAuth {
     var user: User?

@@ -9,8 +9,8 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
-import likco.likfit.modals.ui.SnackBar
-import likco.likfit.modals.ui.SnackBarType
+import likco.likfit.models.ui.SnackBar
+import likco.likfit.models.ui.SnackBarType
 
 object SnackBarHandler {
     private var scope: CoroutineScope? = null

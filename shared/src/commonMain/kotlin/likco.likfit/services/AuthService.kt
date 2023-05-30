@@ -1,8 +1,8 @@
 package likco.likfit.services
 
-import likco.likfit.modals.User
-import likco.likfit.modals.ui.Error
-import likco.likfit.modals.ui.ErrorHandlerFun
+import likco.likfit.models.User
+import likco.likfit.models.ui.Error
+import likco.likfit.models.ui.ErrorHandlerFun
 import likco.likfit.services.firebase.FirebaseAuth
 import likco.likfit.services.ui.ErrorHandler
 

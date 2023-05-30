@@ -4,9 +4,9 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthException
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import likco.likfit.modals.User
-import likco.likfit.modals.ui.Error
-import likco.likfit.modals.ui.ErrorHandlerFun
+import likco.likfit.models.User
+import likco.likfit.models.ui.Error
+import likco.likfit.models.ui.ErrorHandlerFun
 
 
 actual object FirebaseAuth {

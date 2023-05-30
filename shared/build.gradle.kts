@@ -24,10 +24,6 @@ kotlin {
         }
         val firebaseVersion = "~> 10.10.0"
 
-        pod("Firebase") {
-            version = firebaseVersion
-        }
-
         pod("FirebaseCore") {
             version = firebaseVersion
         }
@@ -43,9 +39,12 @@ kotlin {
             dependencies {
                 implementation(compose.runtime)
                 implementation(compose.foundation)
+                implementation(compose.animation)
                 implementation(compose.material)
                 @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
                 implementation(compose.components.resources)
+                api("moe.tlaster:precompose-viewmodel:1.4.1")
+                api("moe.tlaster:precompose:1.4.1")
             }
         }
         val androidMain by getting {
@@ -80,10 +79,12 @@ android {
         minSdk = (findProperty("android.minSdk") as String).toInt()
         targetSdk = (findProperty("android.targetSdk") as String).toInt()
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
+
     kotlin {
         jvmToolchain(11)
     }

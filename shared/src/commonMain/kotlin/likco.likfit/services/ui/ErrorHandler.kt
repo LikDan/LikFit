@@ -1,6 +1,6 @@
 package likco.likfit.services.ui
 
-import likco.likfit.modals.ui.Error
+import likco.likfit.models.ui.Error
 
 object ErrorHandler {
     fun handle(error: Error) {

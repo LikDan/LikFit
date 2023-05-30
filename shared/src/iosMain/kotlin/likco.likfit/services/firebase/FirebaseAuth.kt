@@ -3,9 +3,9 @@ package likco.likfit.services.firebase
 import cocoapods.FirebaseAuth.FIRAuth
 import cocoapods.FirebaseAuth.FIRAuthErrorUserInfoNameKey
 import cocoapods.FirebaseCore.FIRApp
-import likco.likfit.modals.User
-import likco.likfit.modals.ui.Error
-import likco.likfit.modals.ui.ErrorHandlerFun
+import likco.likfit.models.User
+import likco.likfit.models.ui.Error
+import likco.likfit.models.ui.ErrorHandlerFun
 import platform.Foundation.NSError
 
 

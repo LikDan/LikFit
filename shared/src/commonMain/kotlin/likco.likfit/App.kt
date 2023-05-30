@@ -1,91 +1,30 @@
 package likco.likfit
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import likco.likfit.i18n.Languages
-import likco.likfit.i18n.Strings
-import likco.likfit.modals.ui.SnackBar
-import likco.likfit.modals.ui.SnackBarType
-import likco.likfit.services.AuthService
-import likco.likfit.services.firebase.FirebaseAuth
-import likco.likfit.services.ui.SnackBarHandler
+import likco.likfit.services.ui.Navigator
+import likco.likfit.utils.viewmodels.makeShared
+import likco.likfit.utils.viewmodels.simpleViewModel
+import likco.likfit.viewmodels.I18nViewModel
+import likco.likfit.viewmodels.UserViewModel
+import likco.likfit.views.login.Login
+import likco.likfit.views.profile.Profile
 
 @Composable
 fun App() {
     MaterialTheme {
-        var language by remember { mutableStateOf(Languages.EN_US) }
+        Column {
+            simpleViewModel(I18nViewModel::class) { I18nViewModel() }.makeShared()
+            simpleViewModel(UserViewModel::class) { UserViewModel() }.makeShared()
 
-        Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
-            var login by remember { mutableStateOf("") }
-            var password by remember { mutableStateOf("") }
-            var user by remember { mutableStateOf(AuthService.user) }
+            Navigator.view(initial = "auth/login") {
+                scene(route = "auth/login") { Login() }
+                scene(route = "profile") { Profile() }
 
-            fun launchSnackBar() {
-                val value = SnackBarType.values().random()
-                SnackBarHandler.show(SnackBar(value.name, value))
+                scene(route = "home") { Text("home") }
             }
-
-            Text("Current language is $language")
-
-            Button(::launchSnackBar) {
-                Text("Show Snackbar")
-            }
-
-            OutlinedTextField(login, { login = it })
-            OutlinedTextField(password, { password = it })
-
-            Button(onClick = {
-                AuthService.login(login, password) {
-                    user = FirebaseAuth.user
-                }
-            }) {
-                Text(language.getOrCode(Strings.LOGIN))
-            }
-
-            Button(onClick = {
-                AuthService.signup(login, password, password) {
-                    user = FirebaseAuth.user
-                }
-            }) {
-                Text(language.getOrCode(Strings.SIGNUP))
-            }
-
-            Button(onClick = {
-                AuthService.logout {
-                    user = FirebaseAuth.user
-                }
-            }) {
-                Text(language.getOrCode(Strings.LOGOUT))
-            }
-
-            Button(onClick = {
-                Strings.locale = Languages.EN_US
-                language = Strings.locale
-            }) {
-                Text("English")
-            }
-
-            Button(onClick = {
-                Strings.locale = Languages.RU_RU
-                language = Strings.locale
-            }) {
-                Text("Russian")
-            }
-
-            Text(user?.login ?: "not authenticated")
-
-            SnackBarHandler.view()
         }
     }
 }
