@@ -7,4 +7,4 @@ data class Error(val message: String? = null, val code: String? = null) {
         get() = Strings.getOrNull(this.code ?: "") ?: message ?: code ?: ""
 }
 
-typealias ErrorHandlerFun = (Error) -> Unit
+typealias OnError = (Error) -> Unit

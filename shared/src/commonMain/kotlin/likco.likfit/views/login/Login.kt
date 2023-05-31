@@ -10,7 +10,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import likco.likfit.i18n.Strings
+import likco.likfit.models.Profile
+import likco.likfit.services.ProfileService
 import likco.likfit.services.ui.Navigator
+import likco.likfit.services.ui.SnackBarHandler
 import likco.likfit.utils.viewmodels.sharedViewModel
 import likco.likfit.viewmodels.I18nViewModel
 import likco.likfit.viewmodels.UserViewModel
@@ -18,6 +21,8 @@ import moe.tlaster.precompose.viewmodel.viewModel
 
 @Composable
 fun Login() = Column {
+    var profile by remember { mutableStateOf<Profile?>(null) }
+
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
 
@@ -43,4 +48,21 @@ fun Login() = Column {
     Button(onClick = { Navigator.navigate("profile") }) {
         Text("To profile")
     }
+
+    Text("Firestore")
+    Text(profile?.name ?: "no profile")
+
+    Button(onClick = { ProfileService.create(Profile("user")) { SnackBarHandler.success("created") } }) {
+        Text("Firestore create")
+    }
+
+    Button(onClick = { ProfileService.get { profile = it } }) {
+        Text("Firestore get")
+    }
+
+    Button(onClick = { ProfileService.delete { SnackBarHandler.success("created") } }) {
+        Text("Firestore delete")
+    }
+
+    SnackBarHandler.view()
 }

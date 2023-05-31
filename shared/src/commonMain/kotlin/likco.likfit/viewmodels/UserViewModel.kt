@@ -3,7 +3,7 @@ package likco.likfit.viewmodels
 import kotlinx.coroutines.flow.update
 import likco.likfit.models.User
 import likco.likfit.services.AuthService
-import likco.likfit.utils.StateViewModel
+import likco.likfit.utils.viewmodels.StateViewModel
 
 class UserViewModel : StateViewModel<User?>(AuthService.user) {
     fun login(email: String, password: String) =

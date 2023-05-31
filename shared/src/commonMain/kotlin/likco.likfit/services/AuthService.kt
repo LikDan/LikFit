@@ -2,8 +2,8 @@ package likco.likfit.services
 
 import likco.likfit.models.User
 import likco.likfit.models.ui.Error
-import likco.likfit.models.ui.ErrorHandlerFun
-import likco.likfit.services.firebase.FirebaseAuth
+import likco.likfit.models.ui.OnError
+import likco.likfit.services.firebase.auth.FirebaseAuth
 import likco.likfit.services.ui.ErrorHandler
 
 object AuthService {
@@ -16,7 +16,7 @@ object AuthService {
     fun login(
         email: String,
         password: String,
-        error: ErrorHandlerFun = ErrorHandler::handle,
+        error: OnError = ErrorHandler::handle,
         success: (User) -> Unit
     ) {
         if (email == "" || password == "") return error(Error(code = "ERROR_FIELD_REQUIRED"))
@@ -27,7 +27,7 @@ object AuthService {
         email: String,
         password: String,
         passwordConfirmation: String,
-        error: ErrorHandlerFun = ErrorHandler::handle,
+        error: OnError = ErrorHandler::handle,
         success: (User) -> Unit
     ) {
         if (email == "" || password == "") return error(Error(code = "ERROR_FIELD_REQUIRED"))
@@ -37,7 +37,7 @@ object AuthService {
     }
 
     fun logout(
-        error: ErrorHandlerFun = ErrorHandler::handle,
+        error: OnError = ErrorHandler::handle,
         success: () -> Unit
     ) {
         FirebaseAuth.EmailAndPassword.logout(error, success)

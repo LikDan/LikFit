@@ -1,13 +1,12 @@
-package likco.likfit.services.firebase
+package likco.likfit.services.firebase.auth
 
 import cocoapods.FirebaseAuth.FIRAuth
 import cocoapods.FirebaseAuth.FIRAuthErrorUserInfoNameKey
 import cocoapods.FirebaseCore.FIRApp
 import likco.likfit.models.User
 import likco.likfit.models.ui.Error
-import likco.likfit.models.ui.ErrorHandlerFun
+import likco.likfit.models.ui.OnError
 import platform.Foundation.NSError
-
 
 actual object FirebaseAuth {
     private val auth: FIRAuth
@@ -18,7 +17,7 @@ actual object FirebaseAuth {
         actual fun login(
             email: String,
             password: String,
-            error: ErrorHandlerFun,
+            error: OnError,
             success: (User) -> Unit
         ) {
             auth.signInWithEmail(email = email, password = password) { result, err ->
@@ -31,7 +30,7 @@ actual object FirebaseAuth {
         actual fun signup(
             email: String,
             password: String,
-            error: ErrorHandlerFun,
+            error: OnError,
             success: (User) -> Unit
         ) {
             auth.createUserWithEmail(email = email, password = password) { result, err ->
@@ -42,7 +41,7 @@ actual object FirebaseAuth {
         }
 
         actual fun logout(
-            error: ErrorHandlerFun,
+            error: OnError,
             success: () -> Unit
         ) {
             auth.signOut(null)
@@ -64,4 +63,3 @@ actual object FirebaseAuth {
     private fun NSError?.error() =
         Error(code = this?.userInfo?.get(FIRAuthErrorUserInfoNameKey)?.toString() ?: "")
 }
-

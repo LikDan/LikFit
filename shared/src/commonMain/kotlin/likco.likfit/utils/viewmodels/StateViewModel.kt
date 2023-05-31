@@ -1,4 +1,4 @@
-package likco.likfit.utils
+package likco.likfit.utils.viewmodels
 
 import androidx.compose.runtime.Composable
 import kotlinx.coroutines.flow.MutableStateFlow

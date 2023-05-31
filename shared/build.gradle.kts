@@ -31,6 +31,10 @@ kotlin {
         pod("FirebaseAuth") {
             version = firebaseVersion
         }
+
+        pod("FirebaseFirestore") {
+            version = firebaseVersion
+        }
         extraSpecAttributes["resources"] = "['src/commonMain/resources/**', 'src/iosMain/resources/**']"
     }
 
@@ -53,6 +57,7 @@ kotlin {
                 api("androidx.appcompat:appcompat:1.6.1")
                 api("androidx.core:core-ktx:1.9.0")
                 implementation("com.google.firebase:firebase-auth-ktx:22.0.0")
+                implementation("com.google.firebase:firebase-firestore-ktx:22.0.0")
             }
         }
         val iosX64Main by getting

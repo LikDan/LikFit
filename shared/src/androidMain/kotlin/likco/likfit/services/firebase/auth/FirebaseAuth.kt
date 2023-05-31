@@ -1,4 +1,4 @@
-package likco.likfit.services.firebase
+package likco.likfit.services.firebase.auth
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthException
@@ -6,8 +6,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import likco.likfit.models.User
 import likco.likfit.models.ui.Error
-import likco.likfit.models.ui.ErrorHandlerFun
-
+import likco.likfit.models.ui.OnError
 
 actual object FirebaseAuth {
     private var auth: FirebaseAuth = Firebase.auth
@@ -17,7 +16,7 @@ actual object FirebaseAuth {
         actual fun login(
             email: String,
             password: String,
-            error: ErrorHandlerFun,
+            error: OnError,
             success: (User) -> Unit
         ) {
             auth
@@ -34,7 +33,7 @@ actual object FirebaseAuth {
         actual fun signup(
             email: String,
             password: String,
-            error: ErrorHandlerFun,
+            error: OnError,
             success: (User) -> Unit
         ) {
             auth
@@ -49,7 +48,7 @@ actual object FirebaseAuth {
         }
 
         actual fun logout(
-            error: ErrorHandlerFun,
+            error: OnError,
             success: () -> Unit
         ) {
             auth.signOut()
@@ -68,4 +67,3 @@ actual object FirebaseAuth {
 
     private fun Exception.error() = Error(code = (this as FirebaseAuthException).errorCode)
 }
-
