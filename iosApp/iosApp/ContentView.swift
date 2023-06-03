@@ -4,7 +4,10 @@ import shared
 
 struct ComposeView: UIViewControllerRepresentable {
     func makeUIViewController(context: Context) -> UIViewController {
-        Main_iosKt.MainViewController()
+        let window = UIApplication.shared.windows.first
+        let topPadding = window!.safeAreaInsets.top
+        let bottomPadding = window!.safeAreaInsets.bottom
+        return Main_iosKt.MainViewController(top: topPadding, bottom: bottomPadding)
     }
 
     func updateUIViewController(_ uiViewController: UIViewController, context: Context) {}
@@ -13,9 +16,8 @@ struct ComposeView: UIViewControllerRepresentable {
 struct ContentView: View {
     var body: some View {
         ComposeView()
-                .ignoresSafeArea(.keyboard) // Compose has own keyboard handler
+                .ignoresSafeArea(.keyboard)
+                .edgesIgnoringSafeArea(.vertical)
     }
 }
-
-
 

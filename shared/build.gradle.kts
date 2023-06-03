@@ -58,7 +58,10 @@ kotlin {
                 api("androidx.core:core-ktx:1.9.0")
                 implementation("com.google.firebase:firebase-auth-ktx:22.0.0")
                 implementation("com.google.firebase:firebase-firestore-ktx:22.0.0")
+                implementation("com.google.accompanist:accompanist-systemuicontroller:0.30.1")
+                implementation( "com.google.accompanist:accompanist-insets:0.30.1")
             }
+
         }
         val iosX64Main by getting
         val iosArm64Main by getting
