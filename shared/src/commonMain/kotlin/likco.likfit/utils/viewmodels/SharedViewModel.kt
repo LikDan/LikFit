@@ -7,7 +7,7 @@ import kotlin.reflect.KClass
 
 private val viewModels: MutableMap<KClass<ViewModel>, ViewModel> = mutableMapOf()
 
-fun ViewModel.makeShared() {
+fun <T: ViewModel> T.makeShared() = apply {
     viewModels[this::class as KClass<ViewModel>] = this
 }
 

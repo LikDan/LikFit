@@ -16,6 +16,7 @@ import likco.likfit.services.ui.Navigator
 import likco.likfit.services.ui.SnackBarHandler
 import likco.likfit.utils.viewmodels.sharedViewModel
 import likco.likfit.viewmodels.I18nViewModel
+import likco.likfit.viewmodels.ThemeViewModel
 import likco.likfit.viewmodels.UserViewModel
 import moe.tlaster.precompose.viewmodel.viewModel
 
@@ -32,6 +33,8 @@ fun Login() = Column {
     val i18nViewModel = sharedViewModel<I18nViewModel>()
     val i18n by i18nViewModel()
 
+    val darkTheme = sharedViewModel<ThemeViewModel>()
+
     Text(uiState?.login ?: "")
 
     OutlinedTextField(email, { email = it })
@@ -45,8 +48,16 @@ fun Login() = Column {
         Text("Toggle lang")
     }
 
+    Button(onClick = { darkTheme.toggle() }) {
+        Text("Toggle theme")
+    }
+
     Button(onClick = { Navigator.navigate("profile") }) {
         Text("To profile")
+    }
+
+    Button(onClick = { Navigator.navigate("home") }) {
+        Text("To home")
     }
 
     Text("Firestore")
@@ -64,5 +75,5 @@ fun Login() = Column {
         Text("Firestore delete")
     }
 
-    SnackBarHandler.view()
+//    SnackBarHandler.view()
 }
