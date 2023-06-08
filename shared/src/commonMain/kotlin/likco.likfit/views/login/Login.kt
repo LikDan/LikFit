@@ -12,16 +12,21 @@ import androidx.compose.runtime.setValue
 import likco.likfit.i18n.Strings
 import likco.likfit.models.Profile
 import likco.likfit.services.ProfileService
+import likco.likfit.services.Test
+import likco.likfit.services.stepscounter.StepsCounterServiceNative
 import likco.likfit.services.ui.Navigator
 import likco.likfit.services.ui.SnackBarHandler
 import likco.likfit.utils.viewmodels.sharedViewModel
 import likco.likfit.viewmodels.I18nViewModel
+import likco.likfit.viewmodels.StepsCounterViewModel
 import likco.likfit.viewmodels.ThemeViewModel
 import likco.likfit.viewmodels.UserViewModel
 import moe.tlaster.precompose.viewmodel.viewModel
 
 @Composable
 fun Login() = Column {
+    Test.viewModel = sharedViewModel<StepsCounterViewModel>()
+
     var profile by remember { mutableStateOf<Profile?>(null) }
 
     var email by remember { mutableStateOf("") }
@@ -75,5 +80,22 @@ fun Login() = Column {
         Text("Firestore delete")
     }
 
-//    SnackBarHandler.view()
+    Button(onClick = {StepsCounterServiceNative.start()}) {
+        Text("Start steps")
+    }
+
+    Button(onClick = {StepsCounterServiceNative.stop()}) {
+        Text("Stop steps")
+    }
+
+    Button(onClick = {StepsCounterServiceNative.stop()}) {
+        Text("Reset steps")
+    }
+
+    val stepsViewModel = sharedViewModel<StepsCounterViewModel>()
+    val steps by stepsViewModel()
+
+    Text(steps.current.toString())
+    Text(steps.afterReset.toString())
+    Text(steps.total.toString())
 }

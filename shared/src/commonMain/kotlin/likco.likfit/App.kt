@@ -12,6 +12,7 @@ import likco.likfit.theme.LikFitTheme
 import likco.likfit.utils.viewmodels.makeShared
 import likco.likfit.utils.viewmodels.simpleViewModel
 import likco.likfit.viewmodels.I18nViewModel
+import likco.likfit.viewmodels.StepsCounterViewModel
 import likco.likfit.viewmodels.UserViewModel
 import likco.likfit.views.login.Login
 import likco.likfit.views.profile.Profile
@@ -21,6 +22,7 @@ fun App(modifier: Modifier = Modifier) {
     LikFitTheme(modifier) {
         simpleViewModel(I18nViewModel::class) { I18nViewModel() }.makeShared()
         simpleViewModel(UserViewModel::class) { UserViewModel() }.makeShared()
+        simpleViewModel(StepsCounterViewModel::class) { StepsCounterViewModel() }.makeShared()
 
         Navigator.view(
             initial = "auth/login",

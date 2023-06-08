@@ -7,7 +7,9 @@ import kotlinx.coroutines.flow.asStateFlow
 import moe.tlaster.precompose.flow.collectAsStateWithLifecycle
 import moe.tlaster.precompose.viewmodel.ViewModel
 
-open class StateViewModel<T>(initial: T): ViewModel() {
+open class StateViewModel<T>(initial: T) : ViewModel() {
+    val value: T get() = mState.value
+
     protected val mState = MutableStateFlow(initial)
     val state: StateFlow<T> = mState.asStateFlow()
 
