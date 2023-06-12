@@ -14,6 +14,8 @@ object Navigator {
     fun navigate(route: String, options: NavOptions? = null) =
         this.navigator?.navigate(route, options)
 
+    operator fun invoke(route: String, options: NavOptions? = null) = navigate(route, options)
+
     @Composable
     fun view(modifier: Modifier = Modifier, initial: String, builder: RouteBuilder.() -> Unit) {
         this.navigator = rememberNavigator()

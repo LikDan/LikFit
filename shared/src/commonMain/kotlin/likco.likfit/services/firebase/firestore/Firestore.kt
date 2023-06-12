@@ -9,13 +9,13 @@ object Firestore {
         if (private) "${privateCollection}/${FirebaseAuth.user?.id}/$collection" else collection
 
     open class DocumentCRUD<T>(
-        collection: String,
+        protected val collection: String,
         protected val mapper: FirestoreDocumentMapper<T>,
         protected val onError: OnError = {},
-        private: Boolean = false,
-        document: String = "self"
+        protected val private: Boolean = false,
+        protected val document: String = "self"
     ) {
-        private val documentPath = "${getDocumentPath(collection, private)}/${document}"
+        private val documentPath get() = "${getDocumentPath(collection, private)}/${document}"
 
         open fun get(error: OnError = onError, success: (T) -> Unit) =
             FirestoreOperations.get(documentPath, mapper.from, error, success)

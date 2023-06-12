@@ -29,12 +29,15 @@ fun LikFitTheme(modifier: Modifier, content: @Composable BoxScope.() -> Unit) =
     ) {
         scene(route = "app") {
             val initialDarkTheme = isSystemInDarkTheme()
-            val darkTheme by simpleViewModel(ThemeViewModel::class) {
-                ThemeViewModel(initialDarkTheme)
+            val theme by simpleViewModel(ThemeViewModel::class) {
+                ThemeViewModel(if (initialDarkTheme) Themes.DARK else Themes.LIGHT)
             }.makeShared()()
 
-            val colors = if (darkTheme) darkColors else lightColors
-            MaterialTheme(colors = colors, shapes = shapes, typography = typography) {
+            MaterialTheme(
+                colors = theme.colors,
+                shapes = theme.shapes,
+                typography = theme.typography
+            ) {
                 CompositionLocalProvider(LocalContentColor provides MaterialTheme.colors.onBackground) {
                     Box(
                         content = content,

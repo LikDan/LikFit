@@ -1,6 +1,6 @@
-package likco.likfit.i18n
+package likco.likfit.models
 
-enum class Strings {
+enum class Gender {
     ABINARY,
     AGENDER,
     AMBIGENDER,
@@ -107,45 +107,9 @@ enum class Strings {
     WOMAN,
     WOMAN_OF_TRANS_EXPERIENCE,
     XENOGENDER,
-    X_GENDER,
-
-    GENDERS_SOURCE,
-    GENDER_NOT_FOUND,
-
-    ERR_NO_IMPLEMENTED,
-    ERROR_USER_NOT_FOUND,
-    ERROR_INVALID_EMAIL,
-    ERROR_WRONG_PASSWORD,
-    ERROR_FIELD_REQUIRED,
-    ERROR_PASSWORDS_MISMATCH,
-
-    LOGIN,
-    SIGNUP,
-    LOGOUT,
-    PASSWORD,
-    PASSWORD_REPEAT,
-    GENDER_SELECTION,
-    PROFILE,
-    HEIGHT,
-    WEIGHT,
-    BIRTHDAY,
-    GENDER,
-
-    SUBMIT,
-    SUCCESS;
-
-    override fun toString(): String = locale.getOrCode(this)
+    X_GENDER;
 
     companion object {
-        var locale: Languages = Languages.EN_US
-
-        fun contains(value: String) = runCatching {
-            Strings.valueOf(value)
-            true
-        }.getOrElse { false }
-
-        fun getOrNull(value: String): String? = runCatching {
-            Strings.valueOf(value).toString()
-        }.getOrNull()
+        const val URL: String = "https://en.wikipedia.org/wiki/List_of_gender_identities"
     }
 }

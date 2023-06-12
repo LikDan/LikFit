@@ -47,6 +47,7 @@ kotlin {
                 implementation(compose.material)
                 @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
                 implementation(compose.components.resources)
+                implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
                 api("moe.tlaster:precompose-viewmodel:1.4.1")
                 api("moe.tlaster:precompose:1.4.1")
             }
