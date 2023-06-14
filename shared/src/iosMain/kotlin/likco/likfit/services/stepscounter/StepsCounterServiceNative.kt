@@ -1,7 +1,5 @@
 package likco.likfit.services.stepscounter
 
-import likco.likfit.services.StepsCounterService
-
 //actual object StepsCounterServiceNative {
 //    lateinit var nativeStart: () -> Unit
 //    lateinit var nativeStop: () -> Unit

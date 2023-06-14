@@ -1,6 +1,6 @@
 package likco.likfit.services.stepscounter
 
-import likco.likfit.services.Test
+import likco.likfit.services.StepsCounterService
 import platform.posix.sleep
 import kotlin.native.concurrent.TransferMode
 import kotlin.native.concurrent.Worker
@@ -26,5 +26,5 @@ actual object StepsCounterServiceNative {
         this.stopped = true
     }
 
-    actual fun update(steps: Int) = Test.update(steps)
+    actual fun update(steps: Int) = StepsCounterService.update(steps)
 }

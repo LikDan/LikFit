@@ -130,6 +130,8 @@ enum class Strings {
     WEIGHT,
     BIRTHDAY,
     GENDER,
+    WEIGHT_GOAL,
+    STEPS_GOAL,
 
     SUBMIT,
     SUCCESS;

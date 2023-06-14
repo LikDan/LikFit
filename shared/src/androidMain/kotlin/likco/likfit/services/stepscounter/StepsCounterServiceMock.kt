@@ -1,6 +1,6 @@
 package likco.likfit.services.stepscounter
 
-import likco.likfit.services.Test
+import likco.likfit.services.StepsCounterService
 import kotlin.concurrent.thread
 import kotlin.random.Random
 
@@ -14,7 +14,7 @@ actual object StepsCounterServiceNative {
             this.stopped = false
             while (!this.stopped) {
                 update(Random.nextInt(25))
-                Thread.sleep(5000L)
+                Thread.sleep(500L)
             }
         }
     }
@@ -23,5 +23,5 @@ actual object StepsCounterServiceNative {
         this.stopped = true
     }
 
-    actual fun update(steps: Int) = Test.update(steps)
+    actual fun update(steps: Int) = StepsCounterService.update(steps)
 }

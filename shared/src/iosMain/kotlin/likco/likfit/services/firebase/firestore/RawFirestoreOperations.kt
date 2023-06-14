@@ -1,5 +1,6 @@
 package likco.likfit.services.firebase.firestore
 
+import cocoapods.FirebaseFirestore.FIRDocumentSnapshot
 import cocoapods.FirebaseFirestore.FIRFirestore
 import likco.likfit.models.ui.Error
 import likco.likfit.models.ui.OnError
@@ -7,6 +8,19 @@ import platform.Foundation.NSError
 
 actual object RawFirestoreOperations {
     private val db = FIRFirestore.firestore()
+
+    actual fun index(
+        collectionPath: String,
+        error: OnError,
+        success: (List<RawFirestoreDocument>) -> Unit
+    ) {
+        db.collectionWithPath(collectionPath).getDocumentsWithCompletion { result, err ->
+            result ?: return@getDocumentsWithCompletion error(err.error())
+            success(result.documents.map { it as? FIRDocumentSnapshot }.map {
+                it?.data()?.mapKeys { k -> k.key.toString() } ?: emptyMap()
+            })
+        }
+    }
 
     actual fun get(
         documentPath: String,

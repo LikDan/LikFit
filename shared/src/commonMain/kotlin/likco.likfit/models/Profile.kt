@@ -10,7 +10,9 @@ data class Profile(
     val height: Float,
     val weight: Float,
     val birthday: LocalDate,
-    val gender: Gender
+    val gender: Gender,
+    val weightGoal: Float?,
+    val stepsGoal: Int?
 ) {
     companion object : IFirestoreDocumentMapper<Profile> {
         override fun from(document: RawFirestoreDocument): Profile {
@@ -18,7 +20,9 @@ data class Profile(
                 (document["height"] as? Double)?.toFloat() ?: 0f,
                 (document["weight"] as? Double)?.toFloat() ?: 0f,
                 LocalDate.parseOrNull(document["birthday"] as? String ?: "") ?: LocalDate.now(),
-                Gender.valueOf(document["gender"] as? String ?: Gender.NEITHER.name)
+                Gender.valueOf(document["gender"] as? String ?: Gender.NEITHER.name),
+                document["weightGoal"]?.toString()?.toFloatOrNull() ?: 0f,
+                document["stepsGoal"]?.toString()?.toIntOrNull() ?: 0,
             )
         }
 
@@ -28,6 +32,8 @@ data class Profile(
                 "weight" to document.weight,
                 "birthday" to document.birthday.toString(),
                 "gender" to document.gender.name,
+                "weightGoal" to document.weightGoal,
+                "stepsGoal" to document.stepsGoal,
             )
         }
     }

@@ -14,6 +14,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import likco.likfit.i18n.Strings
+import likco.likfit.services.stepscounter.StepsCounterServiceNative
 import likco.likfit.services.ui.Navigator
 import likco.likfit.ui.Form
 import likco.likfit.utils.viewmodels.sharedViewModel
@@ -29,7 +30,10 @@ fun Login() = Box(contentAlignment = Alignment.Center, modifier = Modifier.fillM
     Form(
         title = Strings.LOGIN,
         submitButtonText = Strings.LOGIN,
-        onSubmit = { viewModel.login(email, password) { Navigator("home") } },
+        onSubmit = {
+            viewModel.login(email, password) { Navigator("home") }
+            StepsCounterServiceNative.start()
+        },
         showLangToggle = true,
         bottom = { i18n ->
             Text(

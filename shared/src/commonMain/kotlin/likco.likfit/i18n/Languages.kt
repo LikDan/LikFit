@@ -1,5 +1,6 @@
 package likco.likfit.i18n
 
+import likco.likfit.i18n.languages.cnCN
 import likco.likfit.i18n.languages.enUS
 import likco.likfit.i18n.languages.ruRU
 
@@ -7,6 +8,7 @@ typealias Language = Map<Strings, String>
 
 enum class Languages(val lang: Language, val text: String, val short: String) {
     EN_US(enUS, "English", "En"),
+    CN_CN(cnCN, "Chinese", "Cn"),
     RU_RU(ruRU, "Русский", "Ру");
 
     fun getOrNull(code: Strings) = lang[code]

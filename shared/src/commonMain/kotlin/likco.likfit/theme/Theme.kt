@@ -1,7 +1,6 @@
 package likco.likfit.theme
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.fillMaxSize
@@ -28,10 +27,7 @@ fun LikFitTheme(modifier: Modifier, content: @Composable BoxScope.() -> Unit) =
         modifier = Modifier.fillMaxSize()
     ) {
         scene(route = "app") {
-            val initialDarkTheme = isSystemInDarkTheme()
-            val theme by simpleViewModel(ThemeViewModel::class) {
-                ThemeViewModel(if (initialDarkTheme) Themes.DARK else Themes.LIGHT)
-            }.makeShared()()
+            val theme by simpleViewModel(ThemeViewModel::class) { ThemeViewModel(Themes.DARK) }.makeShared()()
 
             MaterialTheme(
                 colors = theme.colors,

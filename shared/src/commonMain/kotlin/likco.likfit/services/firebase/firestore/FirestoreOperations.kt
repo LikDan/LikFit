@@ -3,6 +3,14 @@ package likco.likfit.services.firebase.firestore
 import likco.likfit.models.ui.OnError
 
 object FirestoreOperations {
+    fun <T> index(
+        documentPath: String,
+        where: WhereFireStoreCause = emptyList(),
+        mapper: FirestoreOperationsFromRawMapperFun<T>,
+        error: OnError = {},
+        success: (List<T>) -> Unit
+    ) = RawFirestoreOperations.index(documentPath, where, error) { success(it.map(mapper)) }
+
     fun <T> get(
         documentPath: String,
         mapper: FirestoreOperationsFromRawMapperFun<T>,

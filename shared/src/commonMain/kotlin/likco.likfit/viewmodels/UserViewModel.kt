@@ -43,7 +43,7 @@ class UserViewModel : StateViewModel<User?>(AuthService.user) {
 
     fun loadProfile(onLoad: (Profile?) -> Unit = {}) =
         ProfileService.get(error = { onLoad(null) }) {
-            mState.update { user ->  user?.copy(profile = it) }
+            mState.update { user -> user?.copy(profile = it) }
             onLoad(it)
         }
 
@@ -64,9 +64,19 @@ class UserViewModel : StateViewModel<User?>(AuthService.user) {
         weight: Float?,
         birthday: LocalDate?,
         gender: Gender?,
+        weightGoal: Float?,
+        stepsGoal: Int?,
         error: OnError = ErrorHandler::handle,
         success: () -> Unit = {}
-    ) = AuthService.updateProfile(height, weight, birthday, gender, error) { p ->
+    ) = AuthService.updateProfile(
+        height,
+        weight,
+        birthday,
+        gender,
+        weightGoal,
+        stepsGoal,
+        error
+    ) { p ->
         mState.update { it?.copy(profile = p) }
         success()
     }

@@ -16,7 +16,7 @@
 
         <service
             android:enabled="true"
-            android:name="likco.likfit.services.StepsCounterService"
+            android:name="likco.likfit.services.AndroidStepsCounterService"
             android:foregroundServiceType="location">
         </service>
 

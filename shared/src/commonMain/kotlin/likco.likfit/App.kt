@@ -9,26 +9,38 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import likco.likfit.services.ActivitiesService.activity
+import likco.likfit.services.StepsCounterService
+import likco.likfit.services.stepscounter.StepsCounterServiceNative
 import likco.likfit.services.ui.Navigator
 import likco.likfit.services.ui.SnackBarHandler
 import likco.likfit.theme.LikFitTheme
 import likco.likfit.utils.viewmodels.makeShared
 import likco.likfit.utils.viewmodels.simpleViewModel
+import likco.likfit.viewmodels.ActivityViewModel
 import likco.likfit.viewmodels.I18nViewModel
 import likco.likfit.viewmodels.StepsCounterViewModel
 import likco.likfit.viewmodels.UserViewModel
+import likco.likfit.views.activities.ActivityInfo
+import likco.likfit.views.activities.CurrentActivityInfo
+import likco.likfit.views.activities.StepsInfo
 import likco.likfit.views.auth.Login
 import likco.likfit.views.auth.SignUp
 import likco.likfit.views.auth.SignUpProfile
 import likco.likfit.views.home.Home
 import likco.likfit.views.profile.Profile
+import moe.tlaster.precompose.viewmodel.viewModel
 
 @Composable
 fun App(modifier: Modifier = Modifier) {
     LikFitTheme(modifier) {
         simpleViewModel(I18nViewModel::class) { I18nViewModel() }.makeShared()
         val userViewModel = simpleViewModel(UserViewModel::class) { UserViewModel() }.makeShared()
-        simpleViewModel(StepsCounterViewModel::class) { StepsCounterViewModel() }.makeShared()
+        val stepsViewModel =
+            simpleViewModel(StepsCounterViewModel::class) { StepsCounterViewModel() }.makeShared()
+        viewModel(ActivityViewModel::class) { ActivityViewModel() }.makeShared()
+
+        StepsCounterService.viewModel = stepsViewModel
 
         var loading by remember { mutableStateOf(true) }
         userViewModel.loadProfile { loading = false }
@@ -45,6 +57,8 @@ fun App(modifier: Modifier = Modifier) {
             else -> "home"
         }
 
+        if (initial == "home") StepsCounterServiceNative.start()
+
         Navigator.view(
             initial = initial,
             modifier = Modifier
@@ -57,6 +71,10 @@ fun App(modifier: Modifier = Modifier) {
 
             scene(route = "home") { Home() }
             scene(route = "profile") { Profile() }
+
+            scene(route = "activity/info/{activity}") { ActivityInfo(it.activity()) }
+            scene(route = "activity/current") { CurrentActivityInfo() }
+            scene(route = "activity/steps") { StepsInfo() }
         }
 
         SnackBarHandler.view(

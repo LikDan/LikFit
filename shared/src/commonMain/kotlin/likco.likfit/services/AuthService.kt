@@ -59,7 +59,7 @@ object AuthService {
         if (height == null || weight == null || birthday == null || gender == null)
             return error(Error(code = Strings.ERROR_FIELD_REQUIRED.name))
 
-        val profile = Profile(height, weight, birthday, gender)
+        val profile = Profile(height, weight, birthday, gender, null, null)
         ProfileService.create(profile, error) { success(profile) }
     }
 
@@ -68,13 +68,15 @@ object AuthService {
         weight: Float?,
         birthday: LocalDate?,
         gender: Gender?,
+        weightGoal: Float?,
+        stepsGoal: Int?,
         error: OnError = ErrorHandler::handle,
         success: (Profile) -> Unit
     ) {
         if (height == null || weight == null || birthday == null || gender == null)
             return error(Error(code = Strings.ERROR_FIELD_REQUIRED.name))
 
-        val profile = Profile(height, weight, birthday, gender)
+        val profile = Profile(height, weight, birthday, gender, weightGoal, stepsGoal)
         ProfileService.update(profile, error) { success(profile) }
     }
 }

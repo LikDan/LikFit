@@ -1,6 +1,10 @@
 package likco.likfit.services
 
-import android.app.*
+import android.app.Notification
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
+import android.app.Service
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
@@ -16,10 +20,13 @@ import likco.likfit.MainActivity
 import kotlin.math.roundToInt
 
 @RequiresApi(Build.VERSION_CODES.O)
-class StepsCounterService : Service(), SensorEventListener {
-
+class AndroidStepsCounterService : Service(), SensorEventListener {
     private var stepSensor: Sensor? = null
     private var sensorManager: SensorManager? = null
+
+    private var lastValue: Int = 0
+
+    private var isInitialized: Boolean = false
 
     override fun onCreate() {
         sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager?
@@ -44,7 +51,14 @@ class StepsCounterService : Service(), SensorEventListener {
 
     override fun onSensorChanged(event: SensorEvent?) {
         val steps = event?.values?.firstOrNull()?.roundToInt() ?: return
-        NativeStepCounterService.update(steps)
+        if (!isInitialized) {
+            isInitialized = true
+            this.lastValue = steps
+            return
+        }
+
+        NativeStepCounterService.update(steps - this.lastValue)
+        this.lastValue = steps
     }
 
     private fun createNotification() {

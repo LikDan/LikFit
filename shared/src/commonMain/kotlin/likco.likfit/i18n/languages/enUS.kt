@@ -122,5 +122,16 @@ val enUS = mapOf(
     Strings.ERROR_PASSWORDS_MISMATCH to "Passwords mismatch",
 
     Strings.LOGIN to "Login",
+    Strings.SIGNUP to "Signup",
+    Strings.LOGOUT to "Logout",
     Strings.PASSWORD to "Password",
+    Strings.PASSWORD_REPEAT to "Repeat password",
+    Strings.GENDER_SELECTION to "Select gender",
+    Strings.PROFILE to "Profile",
+    Strings.HEIGHT to "Height",
+    Strings.WEIGHT to "Weight",
+    Strings.BIRTHDAY to "Birthday",
+    Strings.GENDER to "Gender",
+    Strings.WEIGHT_GOAL to "Weight Goal",
+    Strings.STEPS_GOAL to "Steps Goal",
 )

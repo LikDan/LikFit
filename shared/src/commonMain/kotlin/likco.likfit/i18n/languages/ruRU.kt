@@ -111,13 +111,28 @@ val ruRU = mapOf(
     Strings.XENOGENDER to "Ксеногендер",
     Strings.X_GENDER to "Икс-гендер",
 
+    Strings.GENDERS_SOURCE to "Июнь 2023",
+    Strings.GENDER_NOT_FOUND to "Если вы не нашли свой пол, мы надеемся, что он скоро появится",
+
     Strings.ERR_NO_IMPLEMENTED to "Неизвестная ошибка",
     Strings.ERROR_USER_NOT_FOUND to "Пользователь не найден",
-    Strings.ERROR_INVALID_EMAIL to "Неправильный email",
+    Strings.ERROR_INVALID_EMAIL to "Некорректный адрес электронной почты",
     Strings.ERROR_WRONG_PASSWORD to "Неправильный пароль",
-    Strings.ERROR_FIELD_REQUIRED to "Поле обязательно",
+    Strings.ERROR_FIELD_REQUIRED to "Поле обязательно для заполнения",
     Strings.ERROR_PASSWORDS_MISMATCH to "Пароли не совпадают",
 
-    Strings.LOGIN to "Логин",
+    Strings.LOGIN to "Вход",
+    Strings.SIGNUP to "Регистрация",
+    Strings.LOGOUT to "Выйти",
     Strings.PASSWORD to "Пароль",
+    Strings.PASSWORD_REPEAT to "Повторите пароль",
+    Strings.GENDER_SELECTION to "Выберите пол",
+    Strings.PROFILE to "Профиль",
+    Strings.HEIGHT to "Рост",
+    Strings.WEIGHT to "Вес",
+    Strings.BIRTHDAY to "День рождения",
+    Strings.GENDER to "Пол",
+    Strings.WEIGHT_GOAL to "Цель по весу",
+    Strings.STEPS_GOAL to "Цель по шагам"
+
 )

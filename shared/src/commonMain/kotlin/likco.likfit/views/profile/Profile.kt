@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.Divider
 import androidx.compose.material.Icon
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
@@ -56,6 +57,8 @@ fun Profile() = Column(modifier = Modifier.fillMaxSize()) {
     var weight by remember { mutableStateOf<Float?>(user!!.profile!!.weight) }
     var birthday by remember { mutableStateOf(user!!.profile!!.birthday.toUSString()) }
     var gender by remember { mutableStateOf<Gender?>(user!!.profile!!.gender) }
+    var weightGoal by remember { mutableStateOf(user!!.profile!!.weightGoal) }
+    var stepsGoal by remember { mutableStateOf(user!!.profile!!.stepsGoal) }
 
     var showGenderSelection by remember { mutableStateOf(false) }
     if (showGenderSelection) {
@@ -104,10 +107,37 @@ fun Profile() = Column(modifier = Modifier.fillMaxSize()) {
                     .onFocusChanged { if (it.isFocused) showGenderSelection = true },
             )
 
+            Divider(modifier = Modifier.fillMaxWidth())
+
+            OutlinedTextField(
+                value = weightGoal?.toString() ?: "",
+                onValueChange = {
+                    weightGoal = if (it == "") null else it.toFloatOrNull() ?: weightGoal
+                },
+                label = { Text(i18n(Strings.WEIGHT_GOAL)) },
+                modifier = Modifier.fillMaxWidth()
+            )
+
+            OutlinedTextField(
+                value = stepsGoal?.toString() ?: "",
+                onValueChange = {
+                    stepsGoal = if (it == "") null else it.toIntOrNull() ?: stepsGoal
+                },
+                label = { Text(i18n(Strings.STEPS_GOAL)) },
+                modifier = Modifier.fillMaxWidth()
+            )
+
             Button(
                 onClick = {
                     val birthdayLocalDate = LocalDate.parseUS(birthday)
-                    userViewModel.updateProfile(height, weight, birthdayLocalDate, gender) {
+                    userViewModel.updateProfile(
+                        height,
+                        weight,
+                        birthdayLocalDate,
+                        gender,
+                        weightGoal,
+                        stepsGoal
+                    ) {
                         SnackBarHandler.success(i18n(Strings.SUCCESS))
                     }
                 },

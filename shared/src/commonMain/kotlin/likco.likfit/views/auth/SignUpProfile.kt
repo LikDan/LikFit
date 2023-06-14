@@ -16,6 +16,7 @@ import androidx.compose.ui.focus.onFocusChanged
 import kotlinx.datetime.LocalDate
 import likco.likfit.i18n.Strings
 import likco.likfit.models.Gender
+import likco.likfit.services.stepscounter.StepsCounterServiceNative
 import likco.likfit.services.ui.Navigator
 import likco.likfit.ui.Form
 import likco.likfit.ui.GenderSelection
@@ -46,6 +47,7 @@ fun SignUpProfile() = Box(contentAlignment = Alignment.Center, modifier = Modifi
             onSubmit = {
                 val birthdayLocalDate = LocalDate.parseUS(birthday)
                 viewModel.createProfile(height, weight, birthdayLocalDate, gender) {
+                    StepsCounterServiceNative.start()
                     Navigator.navigate("home")
                 }
             },
